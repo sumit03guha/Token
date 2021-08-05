@@ -9,11 +9,18 @@ contract DappToken {
     string public symbol = 'DAPP';
     string public standard = 'DApp Token v1.0';
     mapping(address => uint) public balanceOf;
+    mapping(address => mapping(address => uint)) public allowance;
     
     event Transfer(
         address indexed _from,
         address indexed _to,
-        uint _value
+        uint indexed _value
+        );
+    
+    event Approval(
+        address indexed _owner,
+        address indexed _spender,
+        uint indexed _value
         );
     
     constructor(uint _initialSupply) {
@@ -30,4 +37,23 @@ contract DappToken {
         return true;
     }
     
+    function approve(address _spender, uint _value) public returns (bool success) {
+        allowance[msg.sender][_spender] = _value;
+        emit Approval(msg.sender, _spender, _value);
+        return true;
+    }
+   
+   function transferFrom(address _from, address _to, uint _value) public returns (bool success) {
+       require(_value <= allowance[_from][msg.sender]);
+       require(_value <= balanceOf[_from]);
+       
+       balanceOf[_from] -= _value;
+       balanceOf[_to] += _value;
+       
+       allowance[_from][msg.sender] -= _value;
+       
+       emit Transfer(_from , _to , _value);
+       return true;
+   }
+       
 }
