@@ -7,11 +7,11 @@ App = {
   tokensAvailable: 750000,
 
   init: () => {
-    console.log('app initialized');
+    console.log('App initialized');
     return App.initWeb3();
   },
 
-  initWeb3: () => {
+  initWeb3: async () => {
     if (typeof window.ethereum !== 'undefined') {
       App.web3Provider = window.ethereum;
     } else {
@@ -20,6 +20,7 @@ App = {
       );
       console.log(1234);
     }
+    await ethereum.request({ method: 'eth_requestAccounts' });
     return App.initContracts();
   },
 
