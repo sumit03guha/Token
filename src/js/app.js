@@ -16,7 +16,7 @@ App = {
       App.web3Provider = window.ethereum;
     } else {
       App.web3Provider = new Web3.providers.HttpProvider(
-        'HTTP://127.0.0.1:7545'
+        'https://rinkeby.infura.io/v3/108fe4c89c274ccebbd2e19013757153'
       );
       console.log(1234);
     }
