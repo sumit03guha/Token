@@ -18,10 +18,13 @@
  *
  */
 
-// const HDWalletProvider = require('@truffle/hdwallet-provider');
+const HDWalletProvider = require('@truffle/hdwallet-provider');
 //
-// const fs = require('fs');
+const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
+const credentials = require('./credentials.js');
+const mnemonic = credentials.mnemonic;
+const API_KEY = credentials.API_KEY;
 
 module.exports = {
   /**
@@ -45,6 +48,13 @@ module.exports = {
       host: '127.0.0.1', // Localhost (default: none)
       port: 7545, // Standard Ethereum port (default: none) -- using Ganache
       network_id: '*', // Any network (default: none)
+    },
+    // Rinkeby Test Network
+    rinkeby: {
+      provider: function () {
+        return new HDWalletProvider(mnemonic, API_KEY);
+      },
+      network_id: 4,
     },
     // Another network with more advanced options...
     // advanced: {
