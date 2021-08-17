@@ -145,7 +145,7 @@ function App() {
         <br />
         The token has been deployed on the Rinkeby Test Network.
       </Header>
-      <a href=''>
+      <a href='https://github.com/sumit03guha/Token'>
         Click here to find out more about the source code of the DAPP token.
       </a>
       <Header as='h3'>1 DAPP = {price} ether.</Header>
