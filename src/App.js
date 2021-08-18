@@ -10,6 +10,8 @@ import {
   Message,
   Header,
   Progress,
+  Segment,
+  Label,
 } from 'semantic-ui-react';
 import ButtonMeta from './components/Button';
 import { useState, useEffect } from 'react';
@@ -135,49 +137,82 @@ function App() {
   }, [content]);
 
   return (
-    <Container textAlign='center' style={{ marginTop: '50px' }}>
-      <ButtonMeta />
-      <br />
-      <Header as='h1'> Introducing Decentralized App Token (DAPP)</Header>
-      <Header as='h3'>
-        Disclaimer : This is not a real world use-case token and is made for
-        educational and entertainment purpose.
+    <Container>
+      <Container textAlign='center' style={{ marginTop: '50px' }}>
+        <ButtonMeta />
         <br />
-        The token has been deployed on the Rinkeby Test Network.
-      </Header>
-      <a href='https://github.com/sumit03guha/Token'>
-        Click here to find out more about the source code of the DAPP token.
-      </a>
-      <Header as='h3'>1 DAPP = {price} ether.</Header>
+        <Header as='h1'> Introducing Decentralized App Token (DAPP)</Header>
+        <Header as='h3'>
+          Disclaimer : This is not a real world use-case token and is made for
+          educational and entertainment purpose.
+          <br />
+          The token has been deployed on the Rinkeby Test Network.
+        </Header>
+        <a href='https://github.com/sumit03guha/Token'>
+          <Label icon='github' content='Source Code'></Label>
+        </a>
+        <Header as='h3'>1 DAPP = {price} ether.</Header>
+        <br />
+        <Form onSubmit={onSubmit} error={!!content} success={!!content}>
+          <Form.Field disabled={disabled}>
+            <Input
+              error
+              value={value}
+              placeholder='Enter the amount of tokens you want to buy in whole numbers...'
+              action={{ color: 'teal', content: 'Buy Token' }}
+              onChange={(e) => setValue(e.target.value)}
+              loading={loading}
+            />
+          </Form.Field>
+          <Message success={success} error content={content}></Message>
+        </Form>
+        <br />
+        <Progress
+          color='violet'
+          value={750000 - supply}
+          total='750000'
+          progress='value'
+          label={`${750000 - supply} / 750,000 tokens sold`}
+        />
+        <br />
+        <Header as='h3' color='green'>
+          You currently have: {balance} DAPP
+        </Header>
+        <Header as='h4' color='grey'>
+          Your account: {account}
+        </Header>
+      </Container>
       <br />
-      <Form onSubmit={onSubmit} error={!!content} success={!!content}>
-        <Form.Field disabled={disabled}>
-          <Input
-            error
-            value={value}
-            placeholder='Enter whole numbers...'
-            action={{ color: 'teal', content: 'Buy Token' }}
-            onChange={(e) => setValue(e.target.value)}
-            loading={loading}
-          />
-        </Form.Field>
-        <Message success={success} error content={content}></Message>
-      </Form>
       <br />
-      <Progress
-        color='violet'
-        value={750000 - supply}
-        total='750000'
-        progress='value'
-        label={`${750000 - supply} / 750,000 tokens sold`}
-      />
       <br />
-      <Header as='h3' color='green'>
-        You currently have: {balance} DAPP
-      </Header>
-      <Header as='h4' color='grey'>
-        Your account: {account}
-      </Header>
+      <Container>
+        <Segment>
+          <Header as='h3'>
+            How to buy DAPP Tokens and add them to your wallet?
+          </Header>
+          <p>
+            1. Connect to your Metamask wallet extension. At the top right
+            corner of the page, it should display that "Metamask is Connected".
+          </p>
+          <p>
+            2. Change the Metamask network to "Rinkeby Test Network" from the
+            extension itself.
+          </p>
+          <p>
+            3. Presuming that you have ETH balance in your wallet, enter the
+            amount of tokens you want to buy and confirm the transaction from
+            the Metamask extension.
+          </p>
+          <p>
+            4. After the successful transaction, goto your Metamask wallet
+            extension, click on 'Assets' and 'Add Token'. Enter the 'Token
+            Contract Address' as '0xf0fB2a440D5895C2Fa9f27C57D74d820F0D6A734'.
+            The 'Token Symbol' should be set automatically to 'DAPP'. Set the
+            'Token Decimal' to be '0'. Click 'Next' and 'Add Tokens'.
+          </p>
+          <h5>You are all set. Enjoy being the holder of 'DAPP Token' :)</h5>
+        </Segment>
+      </Container>
     </Container>
   );
 }
